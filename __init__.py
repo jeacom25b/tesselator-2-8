@@ -26,7 +26,7 @@ bl_info = {
     "blender": (2, 80, 0),
     "wiki_url": "",
     "category": "Sculpt",
-    "location": "3D View > Tool shelf > Remesh"}
+    "location": "3D View > Properties (shortcut : N) > Tesselator tab"}
 
 import bpy
 
@@ -79,7 +79,7 @@ def register():
 
 def unregister():
     for cls in classes:
-        bpy.utils.register_class(cls)
+        bpy.utils.unregister_class(cls)
     for module in imported_modules:
         if hasattr(module, "unregister"):
             module.unregister()

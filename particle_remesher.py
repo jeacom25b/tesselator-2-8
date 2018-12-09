@@ -102,78 +102,77 @@ class ParticleTest(bpy.types.Operator):
     algorithm_steps = None
     solver = None
 
-    resolution = bpy.props.FloatProperty(
+    resolution : bpy.props.FloatProperty(
         name="Resolution",
         description="The amount of particles in unmasked areas, (warning: Values above 200 may crash blender.)",
         min=0,
         default=60,
     )
 
-    mask_resolution = bpy.props.FloatProperty(
+    mask_resolution : bpy.props.FloatProperty(
         name="Mask Resolution",
         description="The amount of particles in masked areas, (warning: Values above 200 may crash blender.)",
         min=0,
         default=100,
     )
 
-    predecimation = bpy.props.FloatProperty(
+    predecimation : bpy.props.FloatProperty(
         name="Pre Decimation",
         description="simplify geometry before spawning the particles (low values makes pre-computation faster.)",
         min=0,
         max=1,
         default=0.1,
     )
-    step_scale = bpy.props.FloatProperty(
+    step_scale : bpy.props.FloatProperty(
         name="Step Scale",
         description="How fast the paticles move",
         min=0.0001,
         max=1,
         default=0.1,
     )
-    subdivisions = bpy.props.IntProperty(
+    subdivisions : bpy.props.IntProperty(
         name="Subdivisions",
         description="How many final subdivisions",
         default=2,
         min=0
     )
-    steps = bpy.props.IntProperty(
+    steps : bpy.props.IntProperty(
         name="Relaxation Steps",
         description="The number of \"Smoothing\" steps.",
         default=25,
         min=0
     )
-    seeds = bpy.props.IntProperty(
+    seeds : bpy.props.IntProperty(
         name="Seeds",
         description="How many initial sample points to grow the whole mesh.",
         default=5,
         min=0
     )
-    x_mirror = bpy.props.BoolProperty(
+    x_mirror : bpy.props.BoolProperty(
         name="X Mirror",
         description="Force symmetry around X axis. Disable if your object isn't near symmetric",
         default=True
     )
-    use_gp = bpy.props.BoolProperty(
+    use_gp : bpy.props.BoolProperty(
         name="Use grease pencil",
         description="Take grease pencil strokes as topology guides (it depends on the resolution to get good flow)"
     )
-    allow_triangles = bpy.props.BoolProperty(
+    allow_triangles : bpy.props.BoolProperty(
         name="Allow Triangles",
         description="Remesh with triangles and squares"
     )
-    triangle_mode = bpy.props.BoolProperty(
+    triangle_mode : bpy.props.BoolProperty(
         name="Pure Triangles",
         description="Remesh with triangles instead of squares"
     )
-    particle_placement = bpy.props.EnumProperty(
+    particle_placement : bpy.props.EnumProperty(
         name="Particle Placement",
         description="How to place initial particles before relaxing it",
         items=[("INTEGER_LATTICE", "Integer Lattice", "Creates a uniform grid."),
-               ("FAST_MARCHING", "Fast Marching", "Spread Particles following the curvature."),
-               ("ANOTHER_MESH", "Another Mesh", "Use vertices from another mesh as starting particles")],
+               ("FAST_MARCHING", "Fast Marching", "Spread Particles following the curvature.")],
         default="FAST_MARCHING"
     )
-    show_advanced = bpy.props.BoolProperty(
+    show_advanced : bpy.props.BoolProperty(
         name="Advanced Settings",
         description="Show advanced settigns."
     )
@@ -335,7 +334,7 @@ class ParticleTest(bpy.types.Operator):
             else:
                 bmesh.ops.subdivide_edges(bm, edges=bm.edges, cuts=1, use_grid_fill=True)
                 surface_snap(bm.verts, self.tree)
-                # bmesh.ops.smooth_vert(bm, verts=bm.verts, use_axis_x=True, use_axis_y=True, use_axis_z=True, factor=1)
+                bmesh.ops.smooth_vert(bm, verts=bm.verts, use_axis_x=True, use_axis_y=True, use_axis_z=True, factor=1)
 
         if self.triangle_mode:
             surface_snap(bm.verts, self.tree)
