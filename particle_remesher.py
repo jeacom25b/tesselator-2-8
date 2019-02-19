@@ -32,16 +32,24 @@ def surface_snap(source_verts, tree):
         ray = vert.normal
         location1, normal, index, distance1 = tree.ray_cast(start, ray)
         location2, normal, index, distance2 = tree.ray_cast(start, -ray)
+        location3, normal, index, distance3 = tree.find_nearest(vert.co)
         if location1 and location2:
             final_co = location2 if distance2 < distance1 else location1
+
         elif location1:
             final_co = location1
+            if location3:
+                if distance3 * 2 < distance1:
+                    final_co = location3
         elif location2:
             final_co = location2
+            if location3:
+                if distance3 * 2 < distance2:
+                    final_co = location3
         else:
-            location, normal, index, distance = tree.find_nearest(vert.co)
-            if location:
-                final_co = location
+            if location3:
+                final_co = location3
+        
         if final_co:
             vert.co = final_co
 

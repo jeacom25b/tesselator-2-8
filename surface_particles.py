@@ -439,10 +439,9 @@ class Partile:
         return new_particles
 
     def draw(self):
-        dark_red = (0.9, 0.1, 0, 1)
-        dark_orange = (1, 0.5, 0, 1)
-        red = (1, 0, 0, 1)
-        green = (0, 1, 0, 1)
+        cyan = (0, 0.7, 0.7, 1)
+        blue = (0, 0.2, 1, 1)
+        green = (0.1, 0.7, 0.1, 1)
 
         mat = self.last_hit.frame.get_matrix()
 
@@ -450,22 +449,22 @@ class Partile:
             (
                 mat @ Vector((-1, 1, 0)) * self.radius * 0.9 + self.location + (0.3 * self.radius * self.normal),
                 mat @ Vector((-1, -1, 0)) * self.radius * 0.9 + self.location + (0.3 * self.radius * self.normal),
-                dark_orange
+                blue
             ),
             (
                 mat @ Vector((1, 1, 0)) * self.radius * 0.9 + self.location + (0.3 * self.radius * self.normal),
                 mat @ Vector((1, -1, 0)) * self.radius * 0.9 + self.location + (0.3 * self.radius * self.normal),
-                dark_red
+                cyan
             ),
             (
                 mat @ Vector((-1, 1, 0)) * self.radius * 0.9 + self.location + (0.3 * self.radius * self.normal),
                 mat @ Vector((1, 1, 0)) * self.radius * 0.9 + self.location + (0.3 * self.radius * self.normal),
-                dark_orange
+                blue
             ),
             (
                 mat @ Vector((-1, -1, 0)) * self.radius * 0.9 + self.location + (0.3 * self.radius * self.normal),
                 mat @ Vector((1, -1, 0)) * self.radius * 0.9 + self.location + (0.3 * self.radius * self.normal),
-                dark_red
+                cyan
             ),
         ]
         if self.parent:

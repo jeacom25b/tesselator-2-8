@@ -39,10 +39,12 @@ class DrawObject:
         self.colors.append(color)
 
     def start_drawing(self):
+        bgl.glLineWidth(2)
         if self.x_ray:
             bgl.glDisable(bgl.GL_DEPTH_TEST)
 
     def stop_drawing(self):
+        bgl.glLineWidth(1)
         if self.x_ray:
             bgl.glEnable(bgl.GL_DEPTH_TEST)
 
